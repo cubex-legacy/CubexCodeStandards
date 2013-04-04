@@ -1,0 +1,4 @@
+CubexCodeStandards
+==================
+
+Cubex Coding Standards
