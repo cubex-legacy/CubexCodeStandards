@@ -13,11 +13,6 @@
       <property name="indent" value="2"/>
     </properties>
   </rule>
-  <rule ref="PEAR.WhiteSpace.ScopeClosingBrace">
-    <properties>
-      <property name="indent" value="2"/>
-    </properties>
-  </rule>
 
   <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
   <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
