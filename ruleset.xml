@@ -76,4 +76,12 @@
   </rule>
 
   <rule ref="Zend.Files.ClosingTag"/>
+
+  <rule ref="Generic.PHP.DisallowShortOpenTag">
+    <exclude-pattern>*.phtml</exclude-pattern>
+  </rule>
+
+  <rule ref="Zend.Files.ClosingTag">
+    <exclude-pattern>*.phtml</exclude-pattern>
+  </rule>
 </ruleset>
