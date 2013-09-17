@@ -18,7 +18,6 @@ class CubexCodeStandards_Sniffs_CodeAnalysis_MultipleBlankLineSniff
     $eolCharLen       = strlen($phpcsFile->eolChar);
     $errorSet         = false;
 
-    //file_put_contents(__DIR__ . "/t.txt", print_r($tokens, true));
     do
     {
       $startChar = substr($tokens[$stackPtr]['content'], 0, $eolCharLen);
@@ -34,18 +33,12 @@ class CubexCodeStandards_Sniffs_CodeAnalysis_MultipleBlankLineSniff
       if($blankLines > 2 && !$errorSet)
       {
         $error = 'File must not contain multiple blank lines';
-        $phpcsFile->addError(
-          $error,
-          $previousStackPtr,
-          'MultipleBlankLines'
-        );
+        $phpcsFile->addError($error, $previousStackPtr, 'MultipleBlankLines');
         $errorSet = true;
       }
+
       $stackPtr++;
-      while(isset($stackPtr))
-      {
-        ;
-      }
     }
+    while(isset($stackPtr));
   }
 }
