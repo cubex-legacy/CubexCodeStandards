@@ -23,6 +23,10 @@ class CubexCodeStandards_Sniffs_CodeAnalysis_MultipleBlankLineSniff
       //file_put_contents(__DIR__ . "/t.txt", print_r($tokens, true));
       do
       {
+        if(!isset($tokens[$stackPtr]['content']))
+        {
+          continue;
+        }
         $startChar = substr($tokens[$stackPtr]['content'], 0, $eolCharLen);
         if($startChar === $phpcsFile->eolChar)
         {
