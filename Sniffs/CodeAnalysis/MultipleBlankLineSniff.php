@@ -23,28 +23,31 @@ class CubexCodeStandards_Sniffs_CodeAnalysis_MultipleBlankLineSniff
       //file_put_contents(__DIR__ . "/t.txt", print_r($tokens, true));
       do
       {
-        if(!isset($tokens[$stackPtr]['content']))
+        if(isset($tokens[$stackPtr]['content']))
         {
-          continue;
-        }
-        $startChar = substr($tokens[$stackPtr]['content'], 0, $eolCharLen);
-        if($startChar === $phpcsFile->eolChar)
-        {
-          $blankLines++;
-        }
-        elseif($tokens[$stackPtr]['type'] !== "T_WHITESPACE")
-        {
-          break;
-        }
+          $startChar = substr($tokens[$stackPtr]['content'], 0, $eolCharLen);
+          if($startChar === $phpcsFile->eolChar)
+          {
+            $blankLines++;
+          }
+          elseif($tokens[$stackPtr]['type'] !== "T_WHITESPACE")
+          {
+            break;
+          }
 
-        if($blankLines > 2 && !$errorSet)
-        {
-          $error = 'File must not contain multiple blank lines';
-          $phpcsFile->addError($error, $previousStackPtr, 'MultipleBlankLines');
-          $errorSet = true;
-        }
+          if($blankLines > 2 && !$errorSet)
+          {
+            $error = 'File must not contain multiple blank lines';
+            $phpcsFile->addError(
+              $error,
+              $previousStackPtr,
+              'MultipleBlankLines'
+            );
+            $errorSet = true;
+          }
 
-        $stackPtr++;
+          $stackPtr++;
+        }
       }
       while(isset($stackPtr));
     }
