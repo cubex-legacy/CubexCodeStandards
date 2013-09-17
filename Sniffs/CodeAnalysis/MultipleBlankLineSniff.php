@@ -18,34 +18,34 @@ class CubexCodeStandards_Sniffs_CodeAnalysis_MultipleBlankLineSniff
     $eolCharLen       = strlen($phpcsFile->eolChar);
     $errorSet         = false;
 
-    if(isset($tokens[$stackPtr]))
+    //file_put_contents(__DIR__ . "/t.txt", print_r($tokens, true));
+    do
     {
-      //file_put_contents(__DIR__ . "/t.txt", print_r($tokens, true));
-      do
+      $startChar = substr($tokens[$stackPtr]['content'], 0, $eolCharLen);
+      if($startChar === $phpcsFile->eolChar)
       {
-        $startChar = substr($tokens[$stackPtr]['content'], 0, $eolCharLen);
-        if($startChar === $phpcsFile->eolChar)
-        {
-          $blankLines++;
-        }
-        elseif($tokens[$stackPtr]['type'] !== "T_WHITESPACE")
-        {
-          break;
-        }
-
-        if($blankLines > 2 && !$errorSet)
-        {
-          $error = 'File must not contain multiple blank lines';
-          $phpcsFile->addError(
-            $error,
-            $previousStackPtr,
-            'MultipleBlankLines'
-          );
-          $errorSet = true;
-        }
-        $stackPtr++;
+        $blankLines++;
       }
-      while(isset($stackPtr));
+      elseif($tokens[$stackPtr]['type'] !== "T_WHITESPACE")
+      {
+        break;
+      }
+
+      if($blankLines > 2 && !$errorSet)
+      {
+        $error = 'File must not contain multiple blank lines';
+        $phpcsFile->addError(
+          $error,
+          $previousStackPtr,
+          'MultipleBlankLines'
+        );
+        $errorSet = true;
+      }
+      $stackPtr++;
+      while(isset($stackPtr))
+      {
+        ;
+      }
     }
   }
 }
