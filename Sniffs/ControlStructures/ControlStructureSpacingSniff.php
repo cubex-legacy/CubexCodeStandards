@@ -49,13 +49,22 @@ class CubexCodeStandards_Sniffs_ControlStructures_ControlStructureSpacingSniff
    */
   public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
   {
-    $tokens = $phpcsFile->getTokens();
+    $tokens        = $phpcsFile->getTokens();
+    $previousToken = $tokens[
+      $phpcsFile->findPrevious($this->register(), $stackPtr-1)
+    ];
 
     if(isset($tokens[$stackPtr]['parenthesis_opener']))
     {
       if(!isset($tokens[$stackPtr]['scope_opener'])
        || !isset($tokens[$stackPtr]['scope_closer']))
       {
+        if($tokens[$stackPtr]['code'] === T_WHILE
+          && $previousToken['code'] === T_DO)
+        {
+          return;
+        }
+
         $phpcsFile->addError(
           "No Scope Opener/Closer",
           $tokens[$stackPtr]['parenthesis_owner'],
