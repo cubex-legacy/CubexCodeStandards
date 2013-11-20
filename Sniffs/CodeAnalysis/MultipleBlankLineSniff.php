@@ -39,6 +39,6 @@ class CubexCodeStandards_Sniffs_CodeAnalysis_MultipleBlankLineSniff
 
       $stackPtr++;
     }
-    while(isset($stackPtr));
+    while(isset($tokens[$stackPtr]));
   }
 }
