@@ -36,7 +36,9 @@ class CubexCodeStandards_Sniffs_ControlStructures_ControlStructureSpacingSniff
       T_ELSE,
       T_ELSEIF,
     );
-  }//end register()
+  }
+
+  //end register()
 
   /**
    * Processes this test, when one of its tokens is encountered.
@@ -50,17 +52,21 @@ class CubexCodeStandards_Sniffs_ControlStructures_ControlStructureSpacingSniff
   public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
   {
     $tokens        = $phpcsFile->getTokens();
-    $previousToken = $tokens[
-      $phpcsFile->findPrevious($this->register(), $stackPtr-1)
-    ];
+    $previousToken = $tokens[$phpcsFile->findPrevious(
+      $this->register(),
+      ($stackPtr - 1)
+    )];
 
     if(isset($tokens[$stackPtr]['parenthesis_opener']))
     {
       if(!isset($tokens[$stackPtr]['scope_opener'])
-       || !isset($tokens[$stackPtr]['scope_closer']))
+      || !isset($tokens[$stackPtr]['scope_closer'])
+      )
       {
+        //TODO: If another control structure exists within a do while this breaks
         if($tokens[$stackPtr]['code'] === T_WHILE
-          && $previousToken['code'] === T_DO)
+        && $previousToken['code'] === T_DO
+        )
         {
           return;
         }
@@ -72,6 +78,7 @@ class CubexCodeStandards_Sniffs_ControlStructures_ControlStructureSpacingSniff
         );
       }
     }
-  }//end process()
+  }
+  //end process()
 
 }//end class
